@@ -1,0 +1,1113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prayer For All — Helping Muslim students establish Jummah</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --coral: #E8614A;
+    --gold: #C9A84C;
+    --navy: #1A2332;
+    --teal: #2D6E6E;
+    --cream: #F5EDD8;
+    --navy-light: #243044;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--navy);
+    color: var(--cream);
+    overflow-x: hidden;
+    line-height: 1.6;
+  }
+
+  /* Islamic geometric texture — 8-pointed star tessellation */
+  .geo-texture {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cg fill='none' stroke='%23C9A84C' stroke-width='1'%3E%3Cpath d='M40 8 L48 24 L64 16 L56 32 L72 40 L56 48 L64 64 L48 56 L40 72 L32 56 L16 64 L24 48 L8 40 L24 32 L16 16 L32 24 Z'/%3E%3Cpath d='M40 24 L46 34 L56 28 L50 38 L60 40 L50 42 L56 52 L46 46 L40 56 L34 46 L24 52 L30 42 L20 40 L30 38 L24 28 L34 34 Z'/%3E%3C/g%3E%3C/svg%3E");
+    background-size: 80px 80px;
+  }
+
+  /* ============ NAVBAR ============ */
+  .navbar {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px clamp(20px, 5vw, 60px);
+    background: transparent;
+    border-bottom: 1px solid transparent;
+    transition: background 0.4s ease, border-color 0.4s ease, padding 0.4s ease;
+  }
+  .navbar.scrolled {
+    background: var(--navy);
+    border-bottom: 1px solid var(--gold);
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+  .nav-logo {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    border: 2px solid var(--gold);
+    object-fit: cover;
+    background: var(--navy-light);
+    flex-shrink: 0;
+  }
+  /* Logo fallback when ./logo.png is missing */
+  .nav-logo-fallback {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    border: 2px solid var(--gold);
+    background: var(--navy-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--gold);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    flex-shrink: 0;
+  }
+  .nav-links {
+    display: flex;
+    gap: clamp(16px, 3vw, 38px);
+    list-style: none;
+  }
+  .nav-links a {
+    color: var(--cream);
+    text-decoration: none;
+    font-size: 0.95rem;
+    letter-spacing: 0.02em;
+    transition: color 0.25s ease;
+    position: relative;
+  }
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    left: 0; bottom: -4px;
+    width: 0; height: 1px;
+    background: var(--gold);
+    transition: width 0.25s ease;
+  }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-links a:hover::after { width: 100%; }
+
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    background: none; border: none;
+    padding: 6px;
+  }
+  .hamburger span {
+    width: 26px; height: 2px;
+    background: var(--cream);
+    transition: all 0.3s ease;
+  }
+  .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  /* ============ HERO ============ */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 120px clamp(20px, 6vw, 60px) 80px;
+    background: var(--navy);
+    overflow: hidden;
+  }
+  .hero .geo-texture { opacity: 0.06; }
+
+  .hero-moon {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: min(620px, 90vw);
+    height: min(620px, 90vw);
+    border-radius: 50%;
+    border: clamp(30px, 6vw, 60px) solid var(--gold);
+    opacity: 0.08;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .hero-inner { position: relative; z-index: 2; max-width: 920px; }
+
+  .hero-eyebrow {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    color: var(--gold);
+    letter-spacing: 0.32em;
+    font-size: clamp(0.9rem, 2vw, 1.15rem);
+    margin-bottom: clamp(20px, 4vw, 34px);
+    text-transform: uppercase;
+  }
+
+  .hero-headline {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 600;
+    font-size: clamp(2.1rem, 6.5vw, 4.6rem);
+    line-height: 1.08;
+    color: var(--cream);
+    margin-bottom: clamp(24px, 4vw, 34px);
+  }
+  .hero-headline .word {
+    display: inline-block;
+    margin: 0 0.18em;
+    will-change: transform, opacity;
+  }
+  .hero-headline .accent { color: var(--gold); }
+
+  .hero-sub {
+    font-size: clamp(1rem, 2.4vw, 1.4rem);
+    color: var(--cream);
+    max-width: 620px;
+    margin: 0 auto clamp(32px, 5vw, 44px);
+    font-weight: 300;
+  }
+
+  .cta-button {
+    display: inline-block;
+    background: var(--coral);
+    color: var(--cream);
+    border: 1.5px solid var(--gold);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: 0.03em;
+    padding: 16px 38px;
+    border-radius: 100px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .cta-button:hover {
+    background: var(--gold);
+    color: var(--navy);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(201, 168, 76, 0.3);
+  }
+
+  /* ============ SECTION 2: WHAT WE DO ============ */
+  .whatwedo {
+    position: relative;
+    background: var(--navy-light);
+  }
+  .whatwedo-pin {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: 80px 20px;
+  }
+  .whatwedo-eyebrow {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    color: var(--gold);
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    font-size: clamp(0.85rem, 1.8vw, 1.05rem);
+    position: absolute;
+    top: clamp(50px, 12vh, 110px);
+  }
+  .card-stage {
+    position: relative;
+    width: min(560px, 90vw);
+    height: clamp(330px, 52vh, 380px);
+  }
+  .wcard {
+    position: absolute;
+    inset: 0;
+    background: var(--navy);
+    border-top: 4px solid var(--coral);
+    border-radius: 12px;
+    box-shadow: 0 18px 50px rgba(201, 168, 76, 0.14);
+    padding: clamp(30px, 5vw, 48px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+  /* Without JS, cards render stacked and visible so content never disappears.
+     When GSAP runs, .js-active engages the absolute-positioned scrub deck. */
+  .card-stage:not(.js-active) {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    height: auto;
+  }
+  .card-stage:not(.js-active) .wcard { position: relative; inset: auto; opacity: 1; min-height: 240px; }
+  .wcard-icon {
+    font-size: clamp(3rem, 8vw, 4.4rem);
+    margin-bottom: 22px;
+    filter: drop-shadow(0 2px 8px rgba(201, 168, 76, 0.4));
+  }
+  .wcard-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 600;
+    font-size: clamp(1.8rem, 4.5vw, 2.6rem);
+    color: var(--gold);
+    margin-bottom: 16px;
+  }
+  .wcard-body {
+    color: var(--cream);
+    font-size: clamp(1rem, 2.3vw, 1.2rem);
+    max-width: 420px;
+    font-weight: 300;
+  }
+  .progress-dots {
+    position: absolute;
+    bottom: clamp(40px, 8vh, 70px);
+    display: flex;
+    gap: 12px;
+  }
+  .pdot {
+    width: 9px; height: 9px;
+    border-radius: 50%;
+    background: var(--gold);
+    opacity: 0.3;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+  .pdot.active { opacity: 1; transform: scale(1.35); }
+
+  /* Mobile stacked version (hidden on desktop) */
+  .whatwedo-mobile { display: none; }
+
+  /* ============ SECTION 3: NJ MAP ============ */
+  .map-section {
+    position: relative;
+    padding: clamp(90px, 14vh, 150px) 20px;
+    background: var(--navy);
+    text-align: center;
+  }
+  .section-head {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 600;
+    color: var(--gold);
+    font-size: clamp(2rem, 5.5vw, 3.4rem);
+    margin-bottom: 14px;
+    line-height: 1.1;
+  }
+  .section-sub {
+    color: var(--cream);
+    font-size: clamp(0.98rem, 2.2vw, 1.2rem);
+    font-weight: 300;
+    margin-bottom: clamp(40px, 7vw, 64px);
+    opacity: 0.85;
+  }
+  .map-wrap {
+    position: relative;
+    max-width: 500px;
+    margin: 0 auto;
+    width: 90%;
+  }
+  .nj-svg { width: 100%; height: auto; overflow: visible; }
+  .nj-path {
+    fill: var(--navy-light);
+    stroke: var(--gold);
+    stroke-width: 1.5;
+    stroke-linejoin: round;
+    stroke-linecap: round;
+  }
+
+  .pin-anchor {
+    position: absolute;
+    left: 35%;
+    top: 72%;
+    transform: translate(-50%, -100%);
+    width: 0; height: 0;
+    z-index: 5;
+  }
+  .ripple {
+    position: absolute;
+    left: 50%; bottom: 0;
+    width: 16px; height: 16px;
+    transform: translate(-50%, 50%);
+    border-radius: 50%;
+    border: 2px solid var(--gold);
+    opacity: 0;
+    animation: ripple 3s ease-out infinite;
+  }
+  .ripple:nth-child(2) { animation-delay: 1s; }
+  .ripple:nth-child(3) { animation-delay: 2s; }
+  @keyframes ripple {
+    0%   { width: 16px; height: 16px; opacity: 0.7; }
+    100% { width: 90px; height: 90px; opacity: 0; }
+  }
+  .pin-anchor.hovered .ripple { animation-play-state: paused; opacity: 0; }
+
+  .teardrop {
+    position: absolute;
+    left: 50%; bottom: 0;
+    width: 26px; height: 26px;
+    background: var(--gold);
+    border-radius: 50% 50% 50% 0;
+    transform: translate(-50%, 0) rotate(-45deg);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+    cursor: pointer;
+    z-index: 6;
+  }
+  .teardrop::after {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 9px; height: 9px;
+    background: var(--navy);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .tooltip {
+    position: absolute;
+    left: 50%; bottom: 44px;
+    transform: translateX(-50%);
+    width: 260px;
+    background: var(--navy);
+    border: 1.5px solid var(--gold);
+    border-radius: 12px;
+    padding: 18px;
+    text-align: left;
+    box-shadow: 0 16px 40px rgba(0,0,0,0.5);
+    opacity: 0;
+    visibility: hidden;
+    z-index: 20;
+  }
+  .tooltip.show { visibility: visible; }
+  .tt-school {
+    color: var(--coral);
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 600;
+    font-size: 1.3rem;
+    line-height: 1.15;
+    margin-bottom: 8px;
+  }
+  .tt-meta { color: var(--cream); font-size: 0.85rem; margin-bottom: 3px; }
+  .tt-meta span { color: var(--gold); }
+  .tt-photo {
+    margin-top: 12px;
+    aspect-ratio: 4/3;
+    border: 1.5px dashed var(--gold);
+    border-radius: 8px;
+    background: var(--navy-light);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+  }
+  .tt-photo .crescent { color: var(--gold); font-size: 1.8rem; }
+  .tt-photo small { color: var(--cream); opacity: 0.6; font-size: 0.72rem; }
+
+  /* ============ SECTION 4: GALLERY ============ */
+  .gallery-section {
+    padding: clamp(90px, 14vh, 150px) 20px;
+    background: var(--navy-light);
+    text-align: center;
+  }
+  .gallery-section .section-head { color: var(--cream); }
+  .gallery-section .section-sub { color: var(--gold); opacity: 1; }
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .gtile {
+    aspect-ratio: 4/3;
+    background: var(--navy);
+    border: 2px dashed var(--gold);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    will-change: transform, opacity;
+  }
+  .gtile .crescent { color: var(--gold); opacity: 0.4; font-size: clamp(2.4rem, 5vw, 3.4rem); }
+  .gtile small { color: var(--cream); opacity: 0.7; font-size: 0.85rem; }
+
+  /* ============ SECTION 5: CONTACT ============ */
+  .contact-section {
+    padding: clamp(90px, 14vh, 150px) 20px;
+    background: var(--navy);
+    text-align: center;
+  }
+  .contact-section .section-head { color: var(--cream); }
+  .contact-section .section-sub { color: var(--gold); opacity: 1; }
+  .contact-form {
+    max-width: 560px;
+    margin: 0 auto;
+    text-align: left;
+  }
+  .field { margin-bottom: 22px; }
+  .field label {
+    display: block;
+    color: var(--gold);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 0.72rem;
+    font-weight: 500;
+    margin-bottom: 8px;
+  }
+  .field input,
+  .field select,
+  .field textarea {
+    width: 100%;
+    background: transparent;
+    border: 1px solid rgba(201, 168, 76, 0.5);
+    border-radius: 8px;
+    padding: 13px 15px;
+    color: var(--cream);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1rem;
+    transition: border-color 0.25s ease, box-shadow 0.25s ease;
+  }
+  .field select { cursor: pointer; }
+  .field select option { background: var(--navy); color: var(--cream); }
+  .field textarea { resize: vertical; min-height: 110px; }
+  .field input:focus,
+  .field select:focus,
+  .field textarea:focus {
+    outline: none;
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.18);
+  }
+  .field input::placeholder, .field textarea::placeholder { color: rgba(245, 237, 216, 0.35); }
+
+  .submit-btn {
+    width: 100%;
+    background: var(--coral);
+    color: var(--navy);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 700;
+    font-size: 1.05rem;
+    letter-spacing: 0.02em;
+    border: none;
+    border-radius: 16px;
+    padding: 16px;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+  }
+  .submit-btn:hover { background: var(--gold); transform: translateY(-2px); }
+
+  .contact-direct {
+    margin-top: 36px;
+    text-align: center;
+    color: var(--cream);
+  }
+  .contact-direct .label {
+    color: var(--gold);
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-size: 0.74rem;
+    margin-bottom: 8px;
+  }
+  .contact-direct a {
+    color: var(--cream);
+    text-decoration: none;
+    font-size: 1.15rem;
+    border-bottom: 1px solid var(--gold);
+    padding-bottom: 2px;
+    transition: color 0.25s ease;
+  }
+  .contact-direct a:hover { color: var(--gold); }
+
+  .form-fields > * { will-change: transform, opacity; }
+
+  /* ============ FOOTER ============ */
+  .footer {
+    position: relative;
+    background: var(--navy);
+    border-top: 1px solid var(--gold);
+    padding: clamp(50px, 9vh, 80px) 20px;
+    text-align: center;
+    overflow: hidden;
+  }
+  .footer .geo-texture { opacity: 0.04; }
+  .footer-inner { position: relative; z-index: 2; }
+  .footer-logo {
+    width: 60px; height: 60px;
+    border-radius: 50%;
+    border: 2px solid var(--gold);
+    margin: 0 auto 18px;
+    background: var(--navy-light);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--gold);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 30px;
+    overflow: hidden;
+  }
+  .footer-logo img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
+  .footer-title {
+    font-family: 'Cormorant Garamond', serif;
+    color: var(--gold);
+    font-size: clamp(2rem, 5vw, 2.8rem);
+    font-weight: 600;
+  }
+  .footer-loc {
+    color: var(--cream);
+    font-size: 0.85rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    margin-top: 4px;
+  }
+  .footer-divider {
+    width: 80px; height: 1px;
+    background: var(--gold);
+    margin: 24px auto;
+  }
+  .footer-tag {
+    color: var(--cream);
+    font-weight: 300;
+    font-size: clamp(0.95rem, 2.2vw, 1.1rem);
+    max-width: 460px;
+    margin: 0 auto 20px;
+  }
+  .footer-copy { color: rgba(245, 237, 216, 0.5); font-size: 0.8rem; }
+
+  /* ============ MOBILE ============ */
+  @media (max-width: 768px) {
+    .nav-links {
+      position: fixed;
+      top: 0; right: 0;
+      height: 100vh;
+      width: 75%;
+      max-width: 320px;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 34px;
+      background: var(--navy);
+      border-left: 1px solid var(--gold);
+      transform: translateX(100%);
+      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 999;
+    }
+    .nav-links.open { transform: translateX(0); }
+    .nav-links a { font-size: 1.2rem; }
+    .hamburger { display: flex; z-index: 1001; }
+
+    .whatwedo-pin { display: none; }
+    .whatwedo-mobile {
+      display: block;
+      padding: clamp(70px, 12vh, 100px) 20px;
+    }
+    .whatwedo-mobile .whatwedo-eyebrow {
+      position: static;
+      display: block;
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    .whatwedo-mobile .wcard {
+      position: static;
+      margin-bottom: 22px;
+      height: auto;
+      min-height: 260px;
+    }
+
+    .gallery-grid { grid-template-columns: 1fr; }
+
+    .tooltip {
+      bottom: auto;
+      top: 44px;
+      width: min(260px, 80vw);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+    .word, .hero-sub, .cta-button, .wcard, .gtile, .form-fields > * { opacity: 1 !important; transform: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ NAVBAR ============ -->
+<nav class="navbar" id="navbar">
+  <div class="nav-logo-fallback" id="navLogo">P</div>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#whatwedo">Our Mission</a></li>
+    <li><a href="#map">Where We've Helped</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header class="hero" id="hero">
+  <div class="geo-texture"></div>
+  <div class="hero-moon"></div>
+  <div class="hero-inner">
+    <p class="hero-eyebrow">☽ Prayer For All ✦</p>
+    <h1 class="hero-headline" id="heroHeadline">
+      <span class="word">Starting</span>
+      <span class="word accent">Jummah</span>
+      <span class="word">at</span>
+      <span class="word">your</span>
+      <span class="word">school</span>
+      <span class="word">shouldn't</span>
+      <span class="word">feel</span>
+      <span class="word">impossible.</span>
+    </h1>
+    <p class="hero-sub" id="heroSub">We've done it before. We'll help you do it too.</p>
+    <a href="#contact" class="cta-button" id="heroCta">Request Our Help</a>
+  </div>
+</header>
+
+<!-- ============ SECTION 2: WHAT WE DO ============ -->
+<section class="whatwedo" id="whatwedo">
+  <!-- Desktop pinned version -->
+  <div class="whatwedo-pin" id="wwdPin">
+    <p class="whatwedo-eyebrow">What We Do</p>
+    <div class="card-stage">
+      <div class="wcard" data-card="0">
+        <div class="wcard-icon">🕌</div>
+        <h3 class="wcard-title">We Visit</h3>
+        <p class="wcard-body">We come to your school in person. No calls, no forms — we show up.</p>
+      </div>
+      <div class="wcard" data-card="1">
+        <div class="wcard-icon">🤝</div>
+        <h3 class="wcard-title">We Guide</h3>
+        <p class="wcard-body">We navigate the administration process with you. We've done this before.</p>
+      </div>
+      <div class="wcard" data-card="2">
+        <div class="wcard-icon">🌙</div>
+        <h3 class="wcard-title">We Establish</h3>
+        <p class="wcard-body">Jummah gets set up and running — sustainably, with your community leading it.</p>
+      </div>
+    </div>
+    <div class="progress-dots">
+      <span class="pdot active"></span>
+      <span class="pdot"></span>
+      <span class="pdot"></span>
+    </div>
+  </div>
+
+  <!-- Mobile stacked version -->
+  <div class="whatwedo-mobile">
+    <p class="whatwedo-eyebrow">What We Do</p>
+    <div class="wcard">
+      <div class="wcard-icon">🕌</div>
+      <h3 class="wcard-title">We Visit</h3>
+      <p class="wcard-body">We come to your school in person. No calls, no forms — we show up.</p>
+    </div>
+    <div class="wcard">
+      <div class="wcard-icon">🤝</div>
+      <h3 class="wcard-title">We Guide</h3>
+      <p class="wcard-body">We navigate the administration process with you. We've done this before.</p>
+    </div>
+    <div class="wcard">
+      <div class="wcard-icon">🌙</div>
+      <h3 class="wcard-title">We Establish</h3>
+      <p class="wcard-body">Jummah gets set up and running — sustainably, with your community leading it.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SECTION 3: NJ MAP ============ -->
+<section class="map-section" id="map">
+  <h2 class="section-head" id="mapHead">Where We've Made a Difference</h2>
+  <p class="section-sub" id="mapSub">Every pin is a school where Jummah now exists.</p>
+  <div class="map-wrap">
+    <svg class="nj-svg" viewBox="0 0 300 460" id="njSvg" aria-label="Map of New Jersey">
+      <path class="nj-path" id="njPath" d="
+        M 118 22
+        L 150 14
+        L 162 34
+        L 158 56
+        L 172 70
+        L 196 78
+        L 214 96
+        L 210 118
+        L 224 132
+        L 248 146
+        L 256 170
+        L 244 188
+        L 222 196
+        L 210 214
+        L 214 238
+        L 208 262
+        L 198 286
+        L 192 310
+        L 186 334
+        L 178 356
+        L 168 376
+        L 156 392
+        L 146 408
+        L 138 426
+        L 128 438
+        L 116 430
+        L 112 410
+        L 120 388
+        L 122 364
+        L 116 342
+        L 124 320
+        L 120 296
+        L 110 276
+        L 100 254
+        L 92 230
+        L 82 206
+        L 72 182
+        L 64 158
+        L 58 134
+        L 54 110
+        L 62 88
+        L 78 70
+        L 92 52
+        L 104 36
+        Z
+      "/>
+    </svg>
+
+    <div class="pin-anchor" id="pinAnchor">
+      <div class="ripple"></div>
+      <div class="ripple"></div>
+      <div class="ripple"></div>
+      <div class="teardrop" id="teardrop"></div>
+      <div class="tooltip" id="tooltip">
+        <div class="tt-school">Eastern Regional High School</div>
+        <div class="tt-meta">Jummah Established: <span>2024</span></div>
+        <div class="tt-meta">Led by: <span>Zohab Hoque</span></div>
+        <div class="tt-photo">
+          <span class="crescent">☽</span>
+          <small>Photo coming soon</small>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SECTION 4: GALLERY ============ -->
+<section class="gallery-section" id="gallery">
+  <h2 class="section-head">In the Field</h2>
+  <p class="section-sub">Moments from the schools we've visited.</p>
+  <div class="gallery-grid" id="galleryGrid">
+    <div class="gtile" data-src=""><!-- Replace with real image path --><span class="crescent">☽</span><small>Photo coming soon</small></div>
+    <div class="gtile" data-src=""><!-- Replace with real image path --><span class="crescent">☽</span><small>Photo coming soon</small></div>
+    <div class="gtile" data-src=""><!-- Replace with real image path --><span class="crescent">☽</span><small>Photo coming soon</small></div>
+    <div class="gtile" data-src=""><!-- Replace with real image path --><span class="crescent">☽</span><small>Photo coming soon</small></div>
+    <div class="gtile" data-src=""><!-- Replace with real image path --><span class="crescent">☽</span><small>Photo coming soon</small></div>
+    <div class="gtile" data-src=""><!-- Replace with real image path --><span class="crescent">☽</span><small>Photo coming soon</small></div>
+  </div>
+</section>
+
+<!-- ============ SECTION 5: CONTACT ============ -->
+<section class="contact-section" id="contact">
+  <h2 class="section-head" id="contactHead">Does your school need Jummah?</h2>
+  <p class="section-sub" id="contactSub">We'll come to you. Tell us where.</p>
+
+  <!-- Sign up free at formspree.io, paste your form ID above -->
+  <form class="contact-form" action="https://formspree.io/f/REPLACE_WITH_YOUR_CODE" method="POST">
+    <div class="form-fields" id="formFields">
+      <div class="field">
+        <label for="name">Your Name</label>
+        <input type="text" id="name" name="name" required placeholder="Full name">
+      </div>
+      <div class="field">
+        <label for="school">School Name</label>
+        <input type="text" id="school" name="school" required placeholder="Your school">
+      </div>
+      <div class="field">
+        <label for="city">School City, NJ</label>
+        <input type="text" id="city" name="city" required placeholder="City">
+      </div>
+      <div class="field">
+        <label for="role">Your Role</label>
+        <select id="role" name="role" required>
+          <option value="" disabled selected>Select one</option>
+          <option value="Student">Student</option>
+          <option value="Teacher">Teacher</option>
+          <option value="Parent">Parent</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="situation">Tell us your situation</label>
+        <textarea id="situation" name="situation" rows="4" required placeholder="Where are you in the process? What do you need?"></textarea>
+      </div>
+      <button type="submit" class="submit-btn">Send Request</button>
+    </div>
+  </form>
+
+  <div class="contact-direct">
+    <p class="label">Or reach us directly</p>
+    <!-- replace with real email -->
+    <a href="mailto:your-email@placeholder.com">your-email@placeholder.com</a>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+  <div class="geo-texture"></div>
+  <div class="footer-inner">
+    <div class="footer-logo" id="footerLogo">P</div>
+    <h2 class="footer-title">Prayer For All</h2>
+    <p class="footer-loc">New Jersey</p>
+    <div class="footer-divider"></div>
+    <p class="footer-tag">Helping Muslim students establish Jummah, one school at a time.</p>
+    <p class="footer-copy">© 2026 Prayer For All. Built with purpose.</p>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+  gsap.registerPlugin(ScrollTrigger);
+
+  /* ---- Optional logo image swap (uses ./logo.png if it loads) ---- */
+  (function () {
+    const testImg = new Image();
+    testImg.onload = function () {
+      const navLogo = document.getElementById('navLogo');
+      navLogo.outerHTML = '<img src="./logo.png" class="nav-logo" alt="Prayer For All logo">';
+      const fl = document.getElementById('footerLogo');
+      fl.innerHTML = '<img src="./logo.png" alt="Prayer For All logo">';
+    };
+    testImg.src = './logo.png';
+  })();
+
+  /* ---- Navbar scroll state ---- */
+  const navbar = document.getElementById('navbar');
+  ScrollTrigger.create({
+    start: 'top -80',
+    onUpdate: (self) => {
+      if (self.scroll() > 80) navbar.classList.add('scrolled');
+      else navbar.classList.remove('scrolled');
+    }
+  });
+  // fallback direct listener
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 80) navbar.classList.add('scrolled');
+    else navbar.classList.remove('scrolled');
+  });
+
+  /* ---- Hamburger menu ---- */
+  const hamburger = document.getElementById('hamburger');
+  const navLinks = document.getElementById('navLinks');
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    navLinks.classList.toggle('open');
+  });
+  navLinks.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      hamburger.classList.remove('open');
+      navLinks.classList.remove('open');
+    });
+  });
+
+  /* ---- HERO load animation ---- */
+  function runHero() {
+    // Set hidden states only now (inside JS), so if JS fails the text stays visible
+    gsap.set('.hero-headline .word', { y: 40, opacity: 0 });
+    gsap.set('#heroSub', { y: 20, opacity: 0 });
+    gsap.set('#heroCta', { scale: 0.8, opacity: 0 });
+
+    const tl = gsap.timeline();
+    tl.to('.hero-headline .word', {
+      y: 0, opacity: 1,
+      duration: 0.8,
+      stagger: 0.08,
+      ease: 'power3.out'
+    })
+    .to('#heroSub', {
+      opacity: 1, y: 0,
+      duration: 0.7,
+      ease: 'power2.out'
+    }, '+=0.4')
+    .to('#heroCta', {
+      opacity: 1, scale: 1,
+      duration: 0.6,
+      ease: 'back.out(1.6)'
+    }, '-=0.3');
+
+    ScrollTrigger.refresh();
+  }
+
+  if (document.readyState === 'complete') {
+    runHero();
+  } else {
+    window.addEventListener('load', runHero);
+  }
+
+  /* ---- SECTION 2: pinned card scrub (desktop only) ---- */
+  const isMobile = () => window.matchMedia('(max-width: 768px)').matches;
+
+  if (!isMobile()) {
+    const cards = gsap.utils.toArray('#wwdPin .wcard');
+    const dots = gsap.utils.toArray('#wwdPin .pdot');
+    const stage = document.querySelector('#wwdPin .card-stage');
+    stage.classList.add('js-active'); // engage the stacked->scrub deck
+
+    // first card visible at start
+    gsap.set(cards[0], { x: 0, opacity: 1 });
+    gsap.set(cards.slice(1), { x: 100, opacity: 0 });
+
+    const wwdTl = gsap.timeline({
+      scrollTrigger: {
+        trigger: '#wwdPin',
+        start: 'top top',
+        end: '+=200%',
+        pin: true,
+        scrub: 1,
+      }
+    });
+
+    // card 0 -> 1
+    wwdTl.to(cards[0], { x: -100, opacity: 0, ease: 'power1.inOut' }, 0.5)
+         .to(cards[1], { x: 0, opacity: 1, ease: 'power1.inOut' }, 0.5)
+    // card 1 -> 2
+         .to(cards[1], { x: -100, opacity: 0, ease: 'power1.inOut' }, 1.5)
+         .to(cards[2], { x: 0, opacity: 1, ease: 'power1.inOut' }, 1.5);
+
+    // dots driven by progress
+    ScrollTrigger.create({
+      trigger: '#wwdPin',
+      start: 'top top',
+      end: '+=200%',
+      onUpdate: (self) => {
+        const p = self.progress;
+        let active = 0;
+        if (p >= 0.66) active = 2;
+        else if (p >= 0.33) active = 1;
+        dots.forEach((d, i) => d.classList.toggle('active', i === active));
+      }
+    });
+  } else {
+    // Mobile: fade-in for stacked cards. start at 'top bottom' so it fires
+    // as soon as each card enters from below; fails open if JS is interrupted.
+    gsap.utils.toArray('.whatwedo-mobile .wcard').forEach(card => {
+      gsap.set(card, { opacity: 0, y: 30 });
+      ScrollTrigger.create({
+        trigger: card,
+        start: 'top 98%',
+        once: true,
+        invalidateOnRefresh: true,
+        onEnter: () => gsap.to(card, { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out' })
+      });
+    });
+    // Safety net: if any card is left hidden after load, reveal it.
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        gsap.utils.toArray('.whatwedo-mobile .wcard').forEach(card => {
+          if (parseFloat(getComputedStyle(card).opacity) === 0) {
+            const r = card.getBoundingClientRect();
+            if (r.top < window.innerHeight) gsap.to(card, { opacity: 1, y: 0, duration: 0.6 });
+          }
+        });
+      }, 300);
+    });
+  }
+
+  /* ---- SECTION 3: NJ map draw + pin drop ---- */
+  const njPath = document.getElementById('njPath');
+  const pathLen = njPath.getTotalLength();
+  gsap.set(njPath, { strokeDasharray: pathLen, strokeDashoffset: pathLen });
+  gsap.set('#pinAnchor', { y: -120, opacity: 0 });
+
+  const mapTl = gsap.timeline({
+    scrollTrigger: {
+      trigger: '#map',
+      start: 'top 80%',
+      toggleActions: 'play none none none'
+    }
+  });
+  mapTl.from(['#mapHead', '#mapSub'], {
+      y: 30, opacity: 0, duration: 0.8, stagger: 0.1, ease: 'power2.out'
+    })
+    .to(njPath, { strokeDashoffset: 0, duration: 1.5, ease: 'power2.inOut' }, '-=0.4')
+    .to('#pinAnchor', {
+      y: 0, opacity: 1, duration: 1.2, ease: 'elastic.out(1, 0.5)'
+    }, '-=0.2');
+
+  /* ---- Map tooltip on hover ---- */
+  const pinAnchor = document.getElementById('pinAnchor');
+  const teardrop = document.getElementById('teardrop');
+  const tooltip = document.getElementById('tooltip');
+
+  function showTip() {
+    pinAnchor.classList.add('hovered');
+    tooltip.classList.add('show');
+    gsap.fromTo(tooltip,
+      { scale: 0.8, opacity: 0 },
+      { scale: 1, opacity: 1, duration: 0.35, ease: 'power2.out' }
+    );
+  }
+  function hideTip() {
+    pinAnchor.classList.remove('hovered');
+    gsap.to(tooltip, {
+      scale: 0.8, opacity: 0, duration: 0.25, ease: 'power2.in',
+      onComplete: () => tooltip.classList.remove('show')
+    });
+  }
+  teardrop.addEventListener('mouseenter', showTip);
+  pinAnchor.addEventListener('mouseleave', hideTip);
+  // touch support
+  teardrop.addEventListener('click', (e) => {
+    e.stopPropagation();
+    if (tooltip.classList.contains('show')) hideTip(); else showTip();
+  });
+
+  /* ---- SECTION 4: gallery scatter-in ---- */
+  const tiles = gsap.utils.toArray('.gtile');
+  tiles.forEach(tile => {
+    gsap.set(tile, {
+      x: gsap.utils.random(-200, 200),
+      y: gsap.utils.random(-200, 200),
+      opacity: 0,
+      rotation: gsap.utils.random(-15, 15)
+    });
+  });
+  gsap.to(tiles, {
+    x: 0, y: 0, opacity: 1, rotation: 0,
+    duration: 0.9,
+    stagger: 0.08,
+    ease: 'back.out(1.4)',
+    scrollTrigger: {
+      trigger: '#gallery',
+      start: 'top 80%',
+      toggleActions: 'play none none none'
+    }
+  });
+
+  /* ---- SECTION 5: contact reveal ---- */
+  gsap.from('#contact', {
+    y: 80, opacity: 0, duration: 0.9, ease: 'power2.out',
+    scrollTrigger: { trigger: '#contact', start: 'top 80%', toggleActions: 'play none none none' }
+  });
+  gsap.from('#formFields > *', {
+    y: 30, opacity: 0, duration: 0.6, stagger: 0.1, ease: 'power2.out',
+    scrollTrigger: { trigger: '#contact', start: 'top 70%', toggleActions: 'play none none none' }
+  });
+
+  /* ---- refresh after everything registered ---- */
+  ScrollTrigger.refresh();
+</script>
+</body>
+</html>
