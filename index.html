@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Prayer For All — Helping Muslim students establish Jummah</title>
+<title>Prayer For All — Religious accommodations for Muslim students in NJ schools</title>
+<meta name="description" content="Student-led advocacy helping Muslim students in New Jersey win Jummah prayer accommodations and Eid recognition, using Eastern Regional High School as a working precedent.">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -334,8 +335,6 @@
 
   .pin-anchor {
     position: absolute;
-    left: 35%;
-    top: 72%;
     transform: translate(-50%, -100%);
     width: 0; height: 0;
     z-index: 5;
@@ -419,6 +418,89 @@
   }
   .tt-photo .crescent { color: var(--gold); font-size: 1.8rem; }
   .tt-photo small { color: var(--cream); opacity: 0.6; font-size: 0.72rem; }
+
+  .pin-anchor.in-progress .teardrop {
+    background: transparent;
+    border: 2px solid var(--gold);
+  }
+  .pin-anchor.in-progress .teardrop::after { background: var(--gold); opacity: 0.55; }
+  .pin-anchor.in-progress .tooltip { width: 225px; }
+
+  .hero-cta-row {
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .cta-ghost {
+    background: transparent !important;
+    color: var(--gold) !important;
+    border: 1.5px solid var(--gold);
+  }
+  .cta-ghost:hover {
+    background: var(--gold) !important;
+    color: var(--navy) !important;
+  }
+
+  /* ============ RESOURCES ============ */
+  .resources-section {
+    padding: clamp(90px, 14vh, 150px) 20px;
+    background: var(--navy-light);
+    text-align: center;
+  }
+  .resources-section .section-head { color: var(--cream); }
+  .resources-section .section-sub { color: var(--gold); opacity: 1; }
+  .resource-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    max-width: 1100px;
+    margin: 0 auto;
+    text-align: left;
+  }
+  .rcard {
+    background: var(--navy);
+    border: 1.5px solid rgba(201, 168, 76, 0.5);
+    border-radius: 12px;
+    padding: 26px 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    will-change: transform, opacity;
+    transition: border-color 0.25s ease, transform 0.25s ease;
+  }
+  .rcard:hover { border-color: var(--gold); transform: translateY(-4px); }
+  .rcard-icon { font-size: 1.7rem; }
+  .rcard-title {
+    font-family: 'Cormorant Garamond', serif;
+    color: var(--gold);
+    font-weight: 600;
+    font-size: 1.45rem;
+    line-height: 1.15;
+  }
+  .rcard-tag {
+    color: var(--coral);
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+  .rcard-body { color: var(--cream); opacity: 0.85; font-size: 0.92rem; flex: 1; }
+  .rcard-btn {
+    align-self: flex-start;
+    background: transparent;
+    color: var(--gold);
+    border: 1.5px solid var(--gold);
+    border-radius: 999px;
+    padding: 9px 20px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.25s ease, color 0.25s ease;
+  }
+  .rcard-btn:hover { background: var(--gold); color: var(--navy); }
 
   /* ============ SECTION 4: GALLERY ============ */
   .gallery-section {
@@ -630,6 +712,7 @@
     }
 
     .gallery-grid { grid-template-columns: 1fr; }
+    .resource-grid { grid-template-columns: 1fr; }
 
     .tooltip {
       bottom: auto;
@@ -640,7 +723,8 @@
 
   @media (prefers-reduced-motion: reduce) {
     * { animation: none !important; transition: none !important; }
-    .word, .hero-sub, .cta-button, .wcard, .gtile, .form-fields > * { opacity: 1 !important; transform: none !important; }
+    .word, .hero-sub, .cta-button, .wcard, .rcard, .form-fields > * { opacity: 1 !important; transform: none !important; }
+    .pin-anchor { opacity: 1 !important; }
   }
 </style>
 </head>
@@ -655,7 +739,7 @@
   <ul class="nav-links" id="navLinks">
     <li><a href="#whatwedo">Our Mission</a></li>
     <li><a href="#map">Where We've Helped</a></li>
-    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#resources">Resources</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
 </nav>
@@ -676,8 +760,11 @@
       <span class="word">feel</span>
       <span class="word">impossible.</span>
     </h1>
-    <p class="hero-sub" id="heroSub">We've done it before. We'll help you do it too.</p>
-    <a href="#contact" class="cta-button" id="heroCta">Request Our Help</a>
+    <p class="hero-sub" id="heroSub">Jummah prayer. Eid recognized. We equip students across New Jersey to win religious accommodations at their own schools.</p>
+    <div class="hero-cta-row">
+      <a href="#contact" class="cta-button" id="heroCta">Request Our Help</a>
+      <a href="#resources" class="cta-button cta-ghost" id="heroCta2">See the Playbook</a>
+    </div>
   </div>
 </header>
 
@@ -685,22 +772,22 @@
 <section class="whatwedo" id="whatwedo">
   <!-- Desktop pinned version -->
   <div class="whatwedo-pin" id="wwdPin">
-    <p class="whatwedo-eyebrow">What We Do</p>
+    <p class="whatwedo-eyebrow">How It Works</p>
     <div class="card-stage">
       <div class="wcard" data-card="0">
-        <div class="wcard-icon">🕌</div>
-        <h3 class="wcard-title">We Visit</h3>
-        <p class="wcard-body">We come to your school in person. No calls, no forms — we show up.</p>
+        <div class="wcard-icon">📋</div>
+        <h3 class="wcard-title">We Equip</h3>
+        <p class="wcard-body">Templates, request guides, and answers to likely pushback, built from a process that has already worked at a NJ public school.</p>
       </div>
       <div class="wcard" data-card="1">
-        <div class="wcard-icon">🤝</div>
-        <h3 class="wcard-title">We Guide</h3>
-        <p class="wcard-body">We navigate the administration process with you. We've done this before.</p>
+        <div class="wcard-icon">🗣️</div>
+        <h3 class="wcard-title">You Lead</h3>
+        <p class="wcard-body">An MSA rep at your school makes the ask. Administrators hear it from their own students, not from outsiders.</p>
       </div>
       <div class="wcard" data-card="2">
         <div class="wcard-icon">🌙</div>
-        <h3 class="wcard-title">We Establish</h3>
-        <p class="wcard-body">Jummah gets set up and running — sustainably, with your community leading it.</p>
+        <h3 class="wcard-title">It Sticks</h3>
+        <p class="wcard-body">The goal is standing policy: a Friday prayer space and Eid as an excused absence. Not a one-time favor.</p>
       </div>
     </div>
     <div class="progress-dots">
@@ -712,21 +799,21 @@
 
   <!-- Mobile stacked version -->
   <div class="whatwedo-mobile">
-    <p class="whatwedo-eyebrow">What We Do</p>
+    <p class="whatwedo-eyebrow">How It Works</p>
     <div class="wcard">
-      <div class="wcard-icon">🕌</div>
-      <h3 class="wcard-title">We Visit</h3>
-      <p class="wcard-body">We come to your school in person. No calls, no forms — we show up.</p>
+      <div class="wcard-icon">📋</div>
+      <h3 class="wcard-title">We Equip</h3>
+      <p class="wcard-body">Templates, request guides, and answers to likely pushback, built from a process that has already worked at a NJ public school.</p>
     </div>
     <div class="wcard">
-      <div class="wcard-icon">🤝</div>
-      <h3 class="wcard-title">We Guide</h3>
-      <p class="wcard-body">We navigate the administration process with you. We've done this before.</p>
+      <div class="wcard-icon">🗣️</div>
+      <h3 class="wcard-title">You Lead</h3>
+      <p class="wcard-body">An MSA rep at your school makes the ask. Administrators hear it from their own students, not from outsiders.</p>
     </div>
     <div class="wcard">
       <div class="wcard-icon">🌙</div>
-      <h3 class="wcard-title">We Establish</h3>
-      <p class="wcard-body">Jummah gets set up and running — sustainably, with your community leading it.</p>
+      <h3 class="wcard-title">It Sticks</h3>
+      <p class="wcard-body">The goal is standing policy: a Friday prayer space and Eid as an excused absence. Not a one-time favor.</p>
     </div>
   </div>
 </section>
@@ -734,64 +821,49 @@
 <!-- ============ SECTION 3: NJ MAP ============ -->
 <section class="map-section" id="map">
   <h2 class="section-head" id="mapHead">Where We've Made a Difference</h2>
-  <p class="section-sub" id="mapSub">Every pin is a school where Jummah now exists.</p>
+  <p class="section-sub" id="mapSub">Gold pin: Jummah established. Hollow pins: in progress.</p>
   <div class="map-wrap">
     <svg class="nj-svg" viewBox="0 0 300 460" id="njSvg" aria-label="Map of New Jersey">
       <path class="nj-path" id="njPath" d="
-        M 118 22
-        L 150 14
-        L 162 34
-        L 158 56
-        L 172 70
-        L 196 78
-        L 214 96
-        L 210 118
-        L 224 132
-        L 248 146
-        L 256 170
-        L 244 188
-        L 222 196
-        L 210 214
-        L 214 238
-        L 208 262
-        L 198 286
-        L 192 310
-        L 186 334
-        L 178 356
-        L 168 376
-        L 156 392
-        L 146 408
-        L 138 426
-        L 128 438
-        L 116 430
-        L 112 410
-        L 120 388
-        L 122 364
-        L 116 342
-        L 124 320
-        L 120 296
-        L 110 276
-        L 100 254
-        L 92 230
-        L 82 206
-        L 72 182
-        L 64 158
-        L 58 134
-        L 54 110
-        L 62 88
-        L 78 70
-        L 92 52
-        L 104 36
+        M 148 17
+        L 255 82
+        L 248 107
+        L 241 133
+        L 230 144
+        L 209 168
+        L 230 177
+        L 247 172
+        L 247 204
+        L 237 242
+        L 231 300
+        L 187 369
+        L 133 432
+        L 113 445
+        L 111 427
+        L 89 399
+        L 73 381
+        L 50 369
+        L 35 348
+        L 43 306
+        L 50 292
+        L 89 269
+        L 125 242
+        L 140 218
+        L 114 191
+        L 99 163
+        L 81 135
+        L 104 86
+        L 126 54
         Z
       "/>
     </svg>
 
-    <div class="pin-anchor" id="pinAnchor">
+    <div class="pin-anchor" style="left:37%; top:61%;">
       <div class="ripple"></div>
       <div class="ripple"></div>
       <div class="ripple"></div>
-      <div class="teardrop" id="teardrop"></div>
-      <div class="tooltip" id="tooltip">
+      <div class="teardrop"></div>
+      <div class="tooltip">
         <div class="tt-school">Eastern Regional High School</div>
         <div class="tt-meta">Jummah Established: <span>2024</span></div>
         <div class="tt-meta">Led by: <span>Zohab Hoque</span></div>
@@ -801,34 +873,70 @@
         </div>
       </div>
     </div>
+
+    <div class="pin-anchor in-progress" style="left:32%; top:66%;">
+      <div class="teardrop"></div>
+      <div class="tooltip">
+        <div class="tt-school">★★★★★ High School</div>
+        <div class="tt-meta">Status: <span>In progress</span></div>
+        <div class="tt-meta">Name withheld until their request is filed.</div>
+      </div>
+    </div>
+
+    <div class="pin-anchor in-progress" style="left:26%; top:61%;">
+      <div class="teardrop"></div>
+      <div class="tooltip">
+        <div class="tt-school">★★★★★ High School</div>
+        <div class="tt-meta">Status: <span>In progress</span></div>
+        <div class="tt-meta">Name withheld until their request is filed.</div>
+      </div>
+    </div>
   </div>
 </section>
 
-<!-- ============ SECTION 4: GALLERY ============ -->
-<section class="gallery-section" id="gallery">
-  <h2 class="section-head">In the Field</h2>
-  <p class="section-sub">Moments from the schools we've visited.</p>
-  <div class="gallery-grid" id="galleryGrid">
-    <div class="gtile" data-src=""><!-- Replace with real image path --><span class="crescent">☽</span><small>Photo coming soon</small></div>
-    <div class="gtile" data-src=""><!-- Replace with real image path --><span class="crescent">☽</span><small>Photo coming soon</small></div>
-    <div class="gtile" data-src=""><!-- Replace with real image path --><span class="crescent">☽</span><small>Photo coming soon</small></div>
-    <div class="gtile" data-src=""><!-- Replace with real image path --><span class="crescent">☽</span><small>Photo coming soon</small></div>
-    <div class="gtile" data-src=""><!-- Replace with real image path --><span class="crescent">☽</span><small>Photo coming soon</small></div>
-    <div class="gtile" data-src=""><!-- Replace with real image path --><span class="crescent">☽</span><small>Photo coming soon</small></div>
+<!-- ============ SECTION 4: RESOURCES ============ -->
+<!-- Gallery section removed until real photos exist. Restore from git history when ready. -->
+<section class="resources-section" id="resources">
+  <h2 class="section-head">The Playbook</h2>
+  <p class="section-sub">Built from what worked at Eastern Regional. Request access below and we'll send it to your email.</p>
+  <div class="resource-grid">
+    <div class="rcard">
+      <div class="rcard-icon">📄</div>
+      <h3 class="rcard-title">Accommodation Request Template</h3>
+      <p class="rcard-body">The written request for a designated Friday prayer space and Eid as an excused absence, modeled on the version Eastern Regional's administration approved.</p>
+      <button class="rcard-btn" data-resource="Accommodation Request Template">Request this</button>
+    </div>
+    <div class="rcard">
+      <div class="rcard-icon">✉️</div>
+      <h3 class="rcard-title">Principal Outreach Email</h3>
+      <p class="rcard-body">A copy-and-adapt email for making first contact with your administration as a student, including how to frame the ask and cite precedent.</p>
+      <button class="rcard-btn" data-resource="Principal Outreach Email">Request this</button>
+    </div>
+    <div class="rcard">
+      <div class="rcard-icon">🏛️</div>
+      <p class="rcard-tag">Coming soon</p>
+      <h3 class="rcard-title">Board Engagement Guide</h3>
+      <p class="rcard-body">How student reps raise broader issues Muslim students face directly with their own school board.</p>
+      <button class="rcard-btn" data-resource="Board Engagement Guide">Request this</button>
+    </div>
   </div>
 </section>
 
 <!-- ============ SECTION 5: CONTACT ============ -->
 <section class="contact-section" id="contact">
-  <h2 class="section-head" id="contactHead">Does your school need Jummah?</h2>
-  <p class="section-sub" id="contactSub">We'll come to you. Tell us where.</p>
+  <h2 class="section-head" id="contactHead">Ready to start at your school?</h2>
+  <p class="section-sub" id="contactSub">Tell us who you are and what you need. We'll send the playbook and back you up.</p>
 
-  <!-- Sign up free at formspree.io, paste your form ID above -->
-  <form class="contact-form" action="https://formspree.io/f/REPLACE_WITH_YOUR_CODE" method="POST">
+  <form class="contact-form" action="https://formspree.io/f/xeebbqol" method="POST">
+    <input type="hidden" name="_subject" value="New Prayer For All request">
     <div class="form-fields" id="formFields">
       <div class="field">
         <label for="name">Your Name</label>
         <input type="text" id="name" name="name" required placeholder="Full name">
+      </div>
+      <div class="field">
+        <label for="email">Your Email</label>
+        <input type="email" id="email" name="email" required placeholder="So we can send you the resources">
       </div>
       <div class="field">
         <label for="school">School Name</label>
@@ -843,8 +951,19 @@
         <select id="role" name="role" required>
           <option value="" disabled selected>Select one</option>
           <option value="Student">Student</option>
+          <option value="MSA Member/Officer">MSA Member/Officer</option>
           <option value="Teacher">Teacher</option>
           <option value="Parent">Parent</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="interest">What do you need?</label>
+        <select id="interest" name="interest" required>
+          <option value="" disabled selected>Select one</option>
+          <option value="Help starting accommodations">Help starting accommodations at my school</option>
+          <option value="Resource templates">The resource templates</option>
+          <option value="Becoming a rep">Becoming a rep</option>
           <option value="Other">Other</option>
         </select>
       </div>
@@ -858,8 +977,7 @@
 
   <div class="contact-direct">
     <p class="label">Or reach us directly</p>
-    <!-- replace with real email -->
-    <a href="mailto:your-email@placeholder.com">your-email@placeholder.com</a>
+    <a href="mailto:prayerforall26@gmail.com">prayerforall26@gmail.com</a>
   </div>
 </section>
 
@@ -871,7 +989,7 @@
     <h2 class="footer-title">Prayer For All</h2>
     <p class="footer-loc">New Jersey</p>
     <div class="footer-divider"></div>
-    <p class="footer-tag">Helping Muslim students establish Jummah, one school at a time.</p>
+    <p class="footer-tag">Helping Muslim students win religious accommodations, one school at a time.</p>
     <p class="footer-copy">© 2026 Prayer For All. Built with purpose.</p>
   </div>
 </footer>
@@ -927,7 +1045,7 @@
     // Set hidden states only now (inside JS), so if JS fails the text stays visible
     gsap.set('.hero-headline .word', { y: 40, opacity: 0 });
     gsap.set('#heroSub', { y: 20, opacity: 0 });
-    gsap.set('#heroCta', { scale: 0.8, opacity: 0 });
+    gsap.set('#heroCta, #heroCta2', { scale: 0.8, opacity: 0 });
 
     const tl = gsap.timeline();
     tl.to('.hero-headline .word', {
@@ -941,9 +1059,10 @@
       duration: 0.7,
       ease: 'power2.out'
     }, '+=0.4')
-    .to('#heroCta', {
+    .to('#heroCta, #heroCta2', {
       opacity: 1, scale: 1,
       duration: 0.6,
+      stagger: 0.12,
       ease: 'back.out(1.6)'
     }, '-=0.3');
 
@@ -1029,7 +1148,7 @@
   const njPath = document.getElementById('njPath');
   const pathLen = njPath.getTotalLength();
   gsap.set(njPath, { strokeDasharray: pathLen, strokeDashoffset: pathLen });
-  gsap.set('#pinAnchor', { y: -120, opacity: 0 });
+  gsap.set('.pin-anchor', { y: -120, opacity: 0 });
 
   const mapTl = gsap.timeline({
     scrollTrigger: {
@@ -1042,58 +1161,82 @@
       y: 30, opacity: 0, duration: 0.8, stagger: 0.1, ease: 'power2.out'
     })
     .to(njPath, { strokeDashoffset: 0, duration: 1.5, ease: 'power2.inOut' }, '-=0.4')
-    .to('#pinAnchor', {
-      y: 0, opacity: 1, duration: 1.2, ease: 'elastic.out(1, 0.5)'
+    .to('.pin-anchor', {
+      y: 0, opacity: 1, duration: 1.2, stagger: 0.18, ease: 'elastic.out(1, 0.5)'
     }, '-=0.2');
 
-  /* ---- Map tooltip on hover ---- */
-  const pinAnchor = document.getElementById('pinAnchor');
-  const teardrop = document.getElementById('teardrop');
-  const tooltip = document.getElementById('tooltip');
+  /* ---- Map tooltips (multi-pin) ---- */
+  const pins = gsap.utils.toArray('.pin-anchor');
 
-  function showTip() {
-    pinAnchor.classList.add('hovered');
-    tooltip.classList.add('show');
-    gsap.fromTo(tooltip,
+  function hidePin(anchor) {
+    const tip = anchor.querySelector('.tooltip');
+    anchor.classList.remove('hovered');
+    gsap.to(tip, {
+      scale: 0.8, opacity: 0, duration: 0.25, ease: 'power2.in',
+      onComplete: () => tip.classList.remove('show')
+    });
+  }
+  function showPin(anchor) {
+    pins.forEach(p => {
+      if (p !== anchor && p.querySelector('.tooltip').classList.contains('show')) hidePin(p);
+    });
+    const tip = anchor.querySelector('.tooltip');
+    anchor.classList.add('hovered');
+    tip.classList.add('show');
+    gsap.fromTo(tip,
       { scale: 0.8, opacity: 0 },
       { scale: 1, opacity: 1, duration: 0.35, ease: 'power2.out' }
     );
   }
-  function hideTip() {
-    pinAnchor.classList.remove('hovered');
-    gsap.to(tooltip, {
-      scale: 0.8, opacity: 0, duration: 0.25, ease: 'power2.in',
-      onComplete: () => tooltip.classList.remove('show')
+  pins.forEach(anchor => {
+    const drop = anchor.querySelector('.teardrop');
+    const tip = anchor.querySelector('.tooltip');
+    drop.addEventListener('mouseenter', () => showPin(anchor));
+    anchor.addEventListener('mouseleave', () => hidePin(anchor));
+    // touch support
+    drop.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (tip.classList.contains('show')) hidePin(anchor); else showPin(anchor);
     });
-  }
-  teardrop.addEventListener('mouseenter', showTip);
-  pinAnchor.addEventListener('mouseleave', hideTip);
-  // touch support
-  teardrop.addEventListener('click', (e) => {
-    e.stopPropagation();
-    if (tooltip.classList.contains('show')) hideTip(); else showTip();
   });
 
-  /* ---- SECTION 4: gallery scatter-in ---- */
-  const tiles = gsap.utils.toArray('.gtile');
-  tiles.forEach(tile => {
-    gsap.set(tile, {
-      x: gsap.utils.random(-200, 200),
-      y: gsap.utils.random(-200, 200),
-      opacity: 0,
-      rotation: gsap.utils.random(-15, 15)
-    });
+  /* ---- SECTION 4: resources reveal ---- */
+  const rcards = gsap.utils.toArray('.rcard');
+  rcards.forEach(card => gsap.set(card, { y: 40, opacity: 0 }));
+  ScrollTrigger.create({
+    trigger: '#resources',
+    start: 'top 80%',
+    once: true,
+    onEnter: () => gsap.to(rcards, {
+      y: 0, opacity: 1, duration: 0.7, stagger: 0.12, ease: 'power2.out'
+    })
   });
-  gsap.to(tiles, {
-    x: 0, y: 0, opacity: 1, rotation: 0,
-    duration: 0.9,
-    stagger: 0.08,
-    ease: 'back.out(1.4)',
-    scrollTrigger: {
-      trigger: '#gallery',
-      start: 'top 80%',
-      toggleActions: 'play none none none'
-    }
+  // Safety net: if cards are left hidden after load, reveal them.
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      rcards.forEach(card => {
+        if (parseFloat(getComputedStyle(card).opacity) === 0) {
+          const r = card.getBoundingClientRect();
+          if (r.top < window.innerHeight) gsap.to(card, { y: 0, opacity: 1, duration: 0.6 });
+        }
+      });
+    }, 300);
+  });
+
+  /* ---- Resource request buttons: prefill contact form and scroll ---- */
+  document.querySelectorAll('.rcard-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const interest = document.getElementById('interest');
+      if (interest) interest.value = 'Resource templates';
+      const situation = document.getElementById('situation');
+      if (situation && !situation.value) {
+        situation.value = 'Requesting: ' + btn.dataset.resource;
+      }
+      const contact = document.getElementById('contact');
+      if (contact) contact.scrollIntoView({ behavior: 'smooth' });
+      const email = document.getElementById('email');
+      if (email) setTimeout(() => email.focus({ preventScroll: true }), 700);
+    });
   });
 
   /* ---- SECTION 5: contact reveal ---- */
