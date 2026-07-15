@@ -6,6 +6,13 @@
 <title>Prayer For All — Religious accommodations for Muslim students in NJ schools</title>
 <meta name="description" content="Student-led advocacy helping Muslim students in New Jersey win Jummah prayer accommodations and Eid recognition, using Eastern Regional High School as a working precedent.">
 
+<link rel="icon" type="image/x-icon" href="./favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="./favicon-16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="./favicon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="./favicon-180.png">
+<link rel="icon" type="image/png" sizes="192x192" href="./favicon-192.png">
+<link rel="icon" type="image/png" sizes="512x512" href="./favicon-512.png">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,700&display=swap" rel="stylesheet">
@@ -453,7 +460,7 @@
   .resources-section .section-sub { color: var(--gold); opacity: 1; }
   .resource-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
     gap: 18px;
     max-width: 1100px;
     margin: 0 auto;
@@ -531,6 +538,65 @@
   }
   .gtile .crescent { color: var(--gold); opacity: 0.4; font-size: clamp(2.4rem, 5vw, 3.4rem); }
   .gtile small { color: var(--cream); opacity: 0.7; font-size: 0.85rem; }
+
+  /* ============ SECTION 4.5: ABOUT US ============ */
+  .about-section {
+    padding: clamp(90px, 14vh, 150px) 20px;
+    background: var(--navy);
+    text-align: center;
+    border-top: 1px solid rgba(201, 168, 76, 0.25);
+  }
+  .about-mission {
+    max-width: 700px;
+    margin: 0 auto clamp(56px, 8vw, 80px);
+    color: var(--cream);
+    font-size: clamp(1rem, 2.3vw, 1.2rem);
+    font-weight: 300;
+    line-height: 1.75;
+    opacity: 0.9;
+  }
+  .founder-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 32px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .founder-card { display: flex; flex-direction: column; align-items: center; }
+  .founder-photo {
+    width: 150px; height: 150px;
+    border-radius: 50%;
+    border: 2.5px solid var(--gold);
+    object-fit: cover;
+    margin-bottom: 18px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.35);
+  }
+  .founder-name {
+    font-family: 'Cormorant Garamond', serif;
+    color: var(--gold);
+    font-weight: 600;
+    font-size: 1.4rem;
+    margin-bottom: 8px;
+  }
+  .founder-role {
+    color: var(--cream);
+    opacity: 0.8;
+    font-size: 0.92rem;
+    line-height: 1.6;
+    max-width: 260px;
+  }
+  .about-story {
+    max-width: 700px;
+    margin: clamp(56px, 8vw, 80px) auto 0;
+    padding-top: clamp(40px, 6vw, 56px);
+    border-top: 1px solid rgba(201, 168, 76, 0.25);
+    color: var(--cream);
+    opacity: 0.85;
+    font-size: 0.98rem;
+    line-height: 1.8;
+    text-align: left;
+  }
+  .about-story strong { color: var(--gold); font-weight: 600; }
 
   /* ============ SECTION 5: CONTACT ============ */
   .contact-section {
@@ -740,6 +806,7 @@
     <li><a href="#whatwedo">Our Mission</a></li>
     <li><a href="#map">Where We've Helped</a></li>
     <li><a href="#resources">Resources</a></li>
+    <li><a href="#about">About Us</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
 </nav>
@@ -901,10 +968,16 @@
   <p class="section-sub">Built from what worked at Eastern Regional. Request access below and we'll send it to your email.</p>
   <div class="resource-grid">
     <div class="rcard">
-      <div class="rcard-icon">📄</div>
-      <h3 class="rcard-title">Accommodation Request Template</h3>
-      <p class="rcard-body">The written request for a designated Friday prayer space and Eid as an excused absence, modeled on the version Eastern Regional's administration approved.</p>
-      <button class="rcard-btn" data-resource="Accommodation Request Template">Request this</button>
+      <div class="rcard-icon">🕌</div>
+      <h3 class="rcard-title">Jummah Accommodation Request</h3>
+      <p class="rcard-body">The written request for a designated Friday prayer space, modeled on the version Eastern Regional's administration approved.</p>
+      <button class="rcard-btn" data-resource="Jummah Accommodation Request">Request this</button>
+    </div>
+    <div class="rcard">
+      <div class="rcard-icon">🌙</div>
+      <h3 class="rcard-title">Eid Excused Absence Request</h3>
+      <p class="rcard-body">The written request confirming Eid al-Fitr and Eid al-Adha as excused absences under NJ law (N.J.S.A. 18A:36-14 to 16), modeled on the version Eastern Regional's administration approved.</p>
+      <button class="rcard-btn" data-resource="Eid Excused Absence Request">Request this</button>
     </div>
     <div class="rcard">
       <div class="rcard-icon">✉️</div>
@@ -916,10 +989,36 @@
       <div class="rcard-icon">🏛️</div>
       <p class="rcard-tag">Coming soon</p>
       <h3 class="rcard-title">Board Engagement Guide</h3>
-      <p class="rcard-body">How student reps raise broader issues Muslim students face directly with their own school board.</p>
+      <p class="rcard-body">How student reps raise broader issues Muslim students face directly with their own school board. Long-term goal: Eid recognized as a day off on the school calendar, the way <a href="https://www.insidernj.com/press-release/cair-nj-welcomes-new-jersey-public-school-districts-trend-of-adding-eid-to-academic-calendars/" style="color:inherit; text-decoration:underline;" target="_blank" rel="noopener">Fair Lawn and ~30 other NJ districts</a> have already done.</p>
       <button class="rcard-btn" data-resource="Board Engagement Guide">Request this</button>
     </div>
   </div>
+</section>
+
+<!-- ============ SECTION 4.5: ABOUT US ============ -->
+<section class="about-section" id="about">
+  <h2 class="section-head">About Us</h2>
+  <p class="about-mission">Muslim students across New Jersey often have to fight, school by school, for accommodations that should already exist: a place to pray on Fridays, and recognition of Eid as a day their faith requires them to be absent. Prayer For All exists to make that fight easier and less isolating, by giving students the templates, guidance, and precedent they need to make the case at their own school. Success isn't a single win, it's these accommodations becoming standard practice at schools across the state, carried forward by students themselves rather than depending on any one person or team.</p>
+
+  <div class="founder-grid">
+    <div class="founder-card">
+      <img class="founder-photo" src="./zohab.webp" alt="Zohab Hoque">
+      <div class="founder-name">Zohab Hoque</div>
+      <p class="founder-role">Leads backend strategy and day-to-day coordination, making sure both tracks, direct school outreach and school board engagement, stay organized and moving forward.</p>
+    </div>
+    <div class="founder-card">
+      <img class="founder-photo" src="./eshal.webp" alt="Eshal Akhter">
+      <div class="founder-name">Eshal Akhter</div>
+      <p class="founder-role">Leads social media coordination, community engagement, and awareness efforts for Prayer For All.</p>
+    </div>
+    <div class="founder-card">
+      <img class="founder-photo" src="./zarish.webp" alt="Zarish Hussain">
+      <div class="founder-name">Zarish Hussain</div>
+      <p class="founder-role">Leads outreach for Prayer For All, with a focus on community service and civic engagement.</p>
+    </div>
+  </div>
+
+  <p class="about-story"><strong>How We Started.</strong> Prayer For All began through the NJMVP and Ali Leadership Institute Youth Leadership Program, where our team set out to solve a problem we'd seen firsthand: Muslim students without a Friday prayer space or recognized Eid absence at their own school. After proving the model worked at one New Jersey public school, we realized the process could be documented and handed off, so any student, at any school, could run the same playbook without needing us to do it for them. What started as one school's win is now something we're actively building out across the state.</p>
 </section>
 
 <!-- ============ SECTION 5: CONTACT ============ -->
@@ -961,8 +1060,10 @@
         <label for="interest">What do you need?</label>
         <select id="interest" name="interest" required>
           <option value="" disabled selected>Select one</option>
+          <option value="Jummah space">Jummah space</option>
+          <option value="Eid excused absence">Eid excused absence</option>
+          <option value="Board engagement">Board engagement</option>
           <option value="Help starting accommodations">Help starting accommodations at my school</option>
-          <option value="Resource templates">The resource templates</option>
           <option value="Becoming a rep">Becoming a rep</option>
           <option value="Other">Other</option>
         </select>
@@ -1224,10 +1325,16 @@
   });
 
   /* ---- Resource request buttons: prefill contact form and scroll ---- */
+  const RESOURCE_TO_INTEREST = {
+    'Jummah Accommodation Request': 'Jummah space',
+    'Eid Excused Absence Request': 'Eid excused absence',
+    'Board Engagement Guide': 'Board engagement',
+    'Principal Outreach Email': 'Help starting accommodations'
+  };
   document.querySelectorAll('.rcard-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       const interest = document.getElementById('interest');
-      if (interest) interest.value = 'Resource templates';
+      if (interest) interest.value = RESOURCE_TO_INTEREST[btn.dataset.resource] || 'Other';
       const situation = document.getElementById('situation');
       if (situation && !situation.value) {
         situation.value = 'Requesting: ' + btn.dataset.resource;
