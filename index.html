@@ -426,6 +426,26 @@
   .tt-photo .crescent { color: var(--gold); font-size: 1.8rem; }
   .tt-photo small { color: var(--cream); opacity: 0.6; font-size: 0.72rem; }
 
+  .pin-anchor.district .teardrop {
+    background: var(--teal);
+    border: 1.5px solid var(--cream);
+    width: 22px; height: 22px;
+  }
+  .pin-anchor.district .teardrop::after { background: var(--cream); width: 7px; height: 7px; }
+  .pin-anchor.district .tooltip { width: 230px; }
+  .pin-label {
+    position: absolute;
+    left: 50%; top: 5px;
+    transform: translateX(-50%);
+    font-size: 0.62rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--cream);
+    opacity: 0.75;
+    white-space: nowrap;
+    pointer-events: none;
+  }
+
   .pin-anchor.in-progress .teardrop {
     background: transparent;
     border: 2px solid var(--gold);
@@ -540,6 +560,31 @@
   .gtile small { color: var(--cream); opacity: 0.7; font-size: 0.85rem; }
 
   /* ============ SECTION 4.5: ABOUT US ============ */
+  .rep-section {
+    padding: clamp(80px, 12vh, 130px) 20px;
+    background: var(--teal);
+    text-align: center;
+  }
+  .rep-eyebrow {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    color: var(--gold);
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    font-size: clamp(0.85rem, 1.8vw, 1.05rem);
+    margin-bottom: 14px;
+  }
+  .rep-section .rep-head { color: var(--cream); }
+  .rep-body {
+    max-width: 620px;
+    margin: 0 auto clamp(32px, 5vw, 44px);
+    color: var(--cream);
+    opacity: 0.92;
+    font-weight: 300;
+    font-size: clamp(0.98rem, 2.2vw, 1.15rem);
+    line-height: 1.7;
+  }
+
   .about-section {
     padding: clamp(90px, 14vh, 150px) 20px;
     background: var(--navy);
@@ -607,6 +652,51 @@
   .about-story strong { color: var(--gold); font-weight: 600; }
 
   /* ============ SECTION 5: CONTACT ============ */
+  .faq-section {
+    padding: clamp(90px, 14vh, 150px) 20px;
+    background: var(--navy-light);
+    text-align: center;
+  }
+  .faq-section .section-head { color: var(--cream); margin-bottom: clamp(36px, 6vw, 56px); }
+  .faq-list { max-width: 680px; margin: 0 auto; text-align: left; }
+  .faq-item {
+    border-bottom: 1px solid rgba(201, 168, 76, 0.3);
+    padding: 6px 0;
+  }
+  .faq-item summary {
+    cursor: pointer;
+    list-style: none;
+    padding: 16px 34px 16px 4px;
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 600;
+    font-size: clamp(1.15rem, 2.6vw, 1.45rem);
+    color: var(--gold);
+    position: relative;
+    transition: color 0.25s ease;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after {
+    content: '+';
+    position: absolute;
+    right: 8px; top: 50%;
+    transform: translateY(-50%);
+    color: var(--coral);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    font-size: 1.5rem;
+    transition: transform 0.25s ease;
+  }
+  .faq-item[open] summary::after { transform: translateY(-50%) rotate(45deg); }
+  .faq-item summary:hover { color: var(--cream); }
+  .faq-item p {
+    padding: 0 4px 18px;
+    color: var(--cream);
+    opacity: 0.85;
+    font-weight: 300;
+    font-size: clamp(0.92rem, 2vw, 1.02rem);
+    line-height: 1.7;
+  }
+
   .contact-section {
     padding: clamp(90px, 14vh, 150px) 20px;
     background: var(--navy);
@@ -743,6 +833,7 @@
     max-width: 460px;
     margin: 0 auto 20px;
   }
+  .footer-credit { color: rgba(245, 237, 216, 0.65); font-size: 0.85rem; margin-bottom: 8px; }
   .footer-copy { color: rgba(245, 237, 216, 0.5); font-size: 0.8rem; }
 
   /* ============ MOBILE ============ */
@@ -896,7 +987,7 @@
 <!-- ============ SECTION 3: NJ MAP ============ -->
 <section class="map-section" id="map">
   <h2 class="section-head" id="mapHead">Where We've Made a Difference</h2>
-  <p class="section-sub" id="mapSub">Gold pin: Jummah established. Hollow pins: in progress.</p>
+  <p class="section-sub" id="mapSub">Gold pin: Jummah established. Hollow pins: in progress. Teal pins: districts that close for Eid.</p>
   <div class="map-wrap">
     <svg class="nj-svg" viewBox="0 0 300 460" id="njSvg" aria-label="Map of New Jersey">
       <path class="nj-path" id="njPath" d="
@@ -966,6 +1057,37 @@
         <div class="tt-meta">Name withheld until their request is filed.</div>
       </div>
     </div>
+
+    <!-- Districts that close school for Eid (public record, CAIR-NJ tracked) -->
+    <div class="pin-anchor district" style="left:74%; top:19%;">
+      <div class="teardrop"></div>
+      <div class="pin-label">Fair Lawn</div>
+      <div class="tooltip">
+        <div class="tt-school">Fair Lawn Public Schools</div>
+        <div class="tt-meta">District closes for <span>Eid</span></div>
+        <div class="tt-meta">Added to calendar: <span>2023</span></div>
+      </div>
+    </div>
+
+    <div class="pin-anchor district" style="left:57%; top:30%;">
+      <div class="teardrop"></div>
+      <div class="pin-label">Watchung</div>
+      <div class="tooltip">
+        <div class="tt-school">Watchung Borough Schools</div>
+        <div class="tt-meta">District closes for <span>Eid</span></div>
+        <div class="tt-meta">Added to calendar: <span>2023&ndash;24</span></div>
+      </div>
+    </div>
+
+    <div class="pin-anchor district" style="left:64%; top:38%;">
+      <div class="teardrop"></div>
+      <div class="pin-label">East Brunswick</div>
+      <div class="tooltip">
+        <div class="tt-school">East Brunswick Public Schools</div>
+        <div class="tt-meta">District closes for <span>Eid</span></div>
+        <div class="tt-meta">Added to calendar: <span>2023&ndash;24</span></div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -988,12 +1110,6 @@
       <button class="rcard-btn" data-resource="Eid Excused Absence Request">Request this</button>
     </div>
     <div class="rcard">
-      <div class="rcard-icon">✉️</div>
-      <h3 class="rcard-title">Principal Outreach Email</h3>
-      <p class="rcard-body">A copy-and-adapt email for making first contact with your administration as a student, including how to frame the ask and cite precedent.</p>
-      <button class="rcard-btn" data-resource="Principal Outreach Email">Request this</button>
-    </div>
-    <div class="rcard">
       <div class="rcard-icon">🏛️</div>
       <p class="rcard-tag">Coming soon</p>
       <h3 class="rcard-title">Board Engagement Guide</h3>
@@ -1001,6 +1117,14 @@
       <button class="rcard-btn" data-resource="Board Engagement Guide">Request this</button>
     </div>
   </div>
+</section>
+
+<!-- ============ SECTION 4.4: BECOME A REP ============ -->
+<section class="rep-section" id="rep">
+  <p class="rep-eyebrow">Become a Rep</p>
+  <h2 class="section-head rep-head">Be the one who gets it done at your school.</h2>
+  <p class="rep-body">Every pin on that map started with one student willing to ask. Reps get the full playbook for their track, direct backup from our team, and a process that has already worked, from first email to standing policy.</p>
+  <a href="#contact" class="cta-button" id="repCta">Sign Up as a Rep</a>
 </section>
 
 <!-- ============ SECTION 4.5: ABOUT US ============ -->
@@ -1027,6 +1151,37 @@
   </div>
 
   <p class="about-story"><strong>How We Started.</strong> Prayer For All began through the NJMVP and Ali Leadership Institute Youth Leadership Program, where our team set out to solve a problem we'd seen firsthand: Muslim students without a Friday prayer space or recognized Eid absence at their own school. After proving the model worked at one New Jersey public school, we realized the process could be documented and handed off, so any student, at any school, could run the same playbook without needing us to do it for them. What started as one school's win is now something we're actively building out across the state.</p>
+</section>
+
+<!-- ============ SECTION 4.75: FAQ ============ -->
+<section class="faq-section" id="faq">
+  <h2 class="section-head">Questions You Might Have</h2>
+  <div class="faq-list">
+    <details class="faq-item">
+      <summary>Is asking for this even allowed?</summary>
+      <p>Yes. Students at public schools have the right to pray on their own time, and requesting a space to do it is a normal accommodation ask, one that schools in NJ have already granted. For Eid specifically, New Jersey law (N.J.S.A. 18A:36-14 to 16) already lists it among religious holidays for which absences must be excused.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Do we need a lawyer?</summary>
+      <p>No. This process starts with a respectful, well-written request from students to their own administration, and in our experience that is usually where it ends, with a yes. If a school pushes back, we help with the follow-up.</p>
+    </details>
+    <details class="faq-item">
+      <summary>What if my principal says no?</summary>
+      <p>A first "no" is not the end. We help reps figure out what the concern actually is, respond to it, and escalate thoughtfully if needed. Reach out through the form below and tell us where things stand.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Does my school have to close for Eid?</summary>
+      <p>Closing is a school board decision, not a legal requirement, but your absence on Eid must be excused under NJ law. Around 30 NJ districts have already added Eid to their calendars as a day off, and pushing your board to join them is part of our long-term playbook.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Who is behind Prayer For All?</summary>
+      <p>Students. We're a three-person founding team from New Jersey, and the project grew out of the NJMVP and Ali Leadership Institute Youth Leadership Program. The model is built so local MSA reps, not us, lead the effort at their own schools.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Does any of this cost money?</summary>
+      <p>No. The playbook, templates, and our help are free for any student or MSA in New Jersey.</p>
+    </details>
+  </div>
 </section>
 
 <!-- ============ SECTION 5: CONTACT ============ -->
@@ -1099,6 +1254,7 @@
     <p class="footer-loc">New Jersey</p>
     <div class="footer-divider"></div>
     <p class="footer-tag">Helping Muslim students win religious accommodations, one school at a time.</p>
+    <p class="footer-credit">A project of the NJMVP &middot; Ali Leadership Institute Youth Leadership Program.</p>
     <p class="footer-copy">© 2026 Prayer For All. Built with purpose.</p>
   </div>
 </footer>
@@ -1201,24 +1357,25 @@
       scrollTrigger: {
         trigger: '#wwdPin',
         start: 'top top',
-        end: '+=200%',
+        end: '+=260%',
         pin: true,
-        scrub: 1,
+        anticipatePin: 1,
+        scrub: 1.6,
       }
     });
 
-    // card 0 -> 1
-    wwdTl.to(cards[0], { x: -100, opacity: 0, ease: 'power1.inOut' }, 0.5)
-         .to(cards[1], { x: 0, opacity: 1, ease: 'power1.inOut' }, 0.5)
+    // card 0 -> 1 (longer crossfade + softer ease = smoother scrub)
+    wwdTl.to(cards[0], { x: -100, opacity: 0, duration: 0.7, ease: 'power2.inOut' }, 0.5)
+         .to(cards[1], { x: 0, opacity: 1, duration: 0.7, ease: 'power2.inOut' }, 0.5)
     // card 1 -> 2
-         .to(cards[1], { x: -100, opacity: 0, ease: 'power1.inOut' }, 1.5)
-         .to(cards[2], { x: 0, opacity: 1, ease: 'power1.inOut' }, 1.5);
+         .to(cards[1], { x: -100, opacity: 0, duration: 0.7, ease: 'power2.inOut' }, 1.5)
+         .to(cards[2], { x: 0, opacity: 1, duration: 0.7, ease: 'power2.inOut' }, 1.5);
 
     // dots driven by progress
     ScrollTrigger.create({
       trigger: '#wwdPin',
       start: 'top top',
-      end: '+=200%',
+      end: '+=260%',
       onUpdate: (self) => {
         const p = self.progress;
         let active = 0;
@@ -1336,8 +1493,7 @@
   const RESOURCE_TO_INTEREST = {
     'Jummah Accommodation Request': 'Jummah space',
     'Eid Excused Absence Request': 'Eid excused absence',
-    'Board Engagement Guide': 'Board engagement',
-    'Principal Outreach Email': 'Help starting accommodations'
+    'Board Engagement Guide': 'Board engagement'
   };
   document.querySelectorAll('.rcard-btn').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -1353,6 +1509,19 @@
       if (email) setTimeout(() => email.focus({ preventScroll: true }), 700);
     });
   });
+
+  /* ---- Become a Rep CTA: prefill form ---- */
+  const repCta = document.getElementById('repCta');
+  if (repCta) {
+    repCta.addEventListener('click', () => {
+      const interest = document.getElementById('interest');
+      if (interest) interest.value = 'Becoming a rep';
+      const situation = document.getElementById('situation');
+      if (situation && !situation.value) {
+        situation.value = 'I want to become a rep at my school.';
+      }
+    });
+  }
 
   /* ---- SECTION 5: contact reveal ---- */
   gsap.from('#contact', {
