@@ -332,6 +332,49 @@
     width: 90%;
   }
   .nj-svg { width: 100%; height: auto; overflow: visible; }
+
+  /* ---- Map tabs (Jummah / Eid) ---- */
+  .map-tabs { display: flex; gap: 10px; justify-content: center; margin: 26px 0 30px; flex-wrap: wrap; }
+  .map-tab {
+    padding: 10px 24px; border-radius: 999px;
+    border: 1.5px solid rgba(201, 168, 76, 0.45);
+    background: transparent; color: var(--cream);
+    font-family: 'DM Sans', sans-serif; font-size: 0.82rem;
+    letter-spacing: 0.07em; text-transform: uppercase;
+    cursor: pointer; transition: all 0.25s ease;
+  }
+  .map-tab:hover:not(.active) { border-color: var(--gold); }
+  .map-tab.active { background: var(--gold); color: var(--navy); border-color: var(--gold); font-weight: 700; }
+
+  /* Eid district layer */
+  #eidLayer { display: none; }
+  .map-wrap.show-eid #eidLayer { display: block; }
+  .map-wrap.show-eid .pin-anchor { display: none; }
+  .eid-dot {
+    fill: var(--teal); opacity: 0.95;
+    stroke: rgba(245, 237, 216, 0.75); stroke-width: 0.9;
+    cursor: pointer; transform-box: fill-box; transform-origin: center;
+  }
+  .eid-dot:hover { opacity: 1; }
+  .eid-dot.adha { stroke: var(--coral); stroke-width: 1.6; }
+  .eid-dot.future { fill: none; stroke: var(--gold); stroke-width: 1.5; stroke-dasharray: 2.5 1.8; }
+  .eid-tip {
+    position: absolute; transform: translate(-50%, -115%);
+    background: var(--navy-light); border: 1px solid rgba(201, 168, 76, 0.5);
+    border-radius: 8px; padding: 8px 12px; font-size: 0.78rem;
+    color: var(--cream); pointer-events: none; opacity: 0;
+    transition: opacity 0.15s ease; white-space: nowrap; z-index: 6;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4); line-height: 1.5;
+  }
+  .eid-tip.show { opacity: 1; }
+  .eid-tip .t-name { color: var(--gold); font-weight: 700; }
+  .map-extras { display: none; max-width: 620px; margin: 22px auto 0; text-align: center; }
+  .map-legend { display: flex; justify-content: center; flex-wrap: wrap; gap: 14px 20px; font-size: 0.75rem; color: var(--cream); opacity: 0.9; }
+  .lg-dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: var(--teal); border: 1px solid rgba(245, 237, 216, 0.75); margin-right: 5px; vertical-align: -1px; }
+  .lg-adha { box-shadow: 0 0 0 2px var(--coral); }
+  .lg-future { background: transparent; border: 1.5px dashed var(--gold); }
+  .map-source { margin-top: 14px; font-size: 0.72rem; color: var(--cream); opacity: 0.6; line-height: 1.6; }
+  .map-source a { color: var(--gold); }
   .nj-path {
     fill: var(--navy-light);
     stroke: var(--gold);
@@ -426,13 +469,6 @@
   .tt-photo .crescent { color: var(--gold); font-size: 1.8rem; }
   .tt-photo small { color: var(--cream); opacity: 0.6; font-size: 0.72rem; }
 
-  .pin-anchor.district .teardrop {
-    background: var(--teal);
-    border: 1.5px solid var(--cream);
-    width: 22px; height: 22px;
-  }
-  .pin-anchor.district .teardrop::after { background: var(--cream); width: 7px; height: 7px; }
-  .pin-anchor.district .tooltip { width: 230px; }
   .pin-label {
     position: absolute;
     left: 50%; top: 5px;
@@ -561,10 +597,51 @@
 
   /* ============ SECTION 4.5: ABOUT US ============ */
   .rep-section {
+    position: relative;
     padding: clamp(80px, 12vh, 130px) 20px;
     background: var(--teal);
     text-align: center;
+    overflow: hidden;
   }
+  .rep-section::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cg fill='none' stroke='%23F5EDD8' stroke-width='1'%3E%3Cpath d='M40 8 L48 24 L64 16 L56 32 L72 40 L56 48 L64 64 L48 56 L40 72 L32 56 L16 64 L24 48 L8 40 L24 32 L16 16 L32 24 Z'/%3E%3Cpath d='M40 24 L46 34 L56 28 L50 38 L60 40 L50 42 L56 52 L46 46 L40 56 L34 46 L24 52 L30 42 L20 40 L30 38 L24 28 L34 34 Z'/%3E%3C/g%3E%3C/svg%3E");
+    opacity: 0.05;
+    pointer-events: none;
+  }
+  .rep-panel {
+    position: relative;
+    max-width: 780px;
+    margin: 0 auto;
+    padding: clamp(38px, 6vw, 58px) clamp(22px, 4vw, 48px);
+    border: 1px solid rgba(245, 237, 216, 0.25);
+    border-radius: 14px;
+    background: rgba(26, 35, 50, 0.18);
+  }
+  .rep-panel::before, .rep-panel::after {
+    content: '';
+    position: absolute;
+    width: 28px; height: 28px;
+    border-color: var(--gold);
+    border-style: solid;
+  }
+  .rep-panel::before { top: -1px; left: -1px; border-width: 2px 0 0 2px; border-radius: 14px 0 0 0; }
+  .rep-panel::after { bottom: -1px; right: -1px; border-width: 0 2px 2px 0; border-radius: 0 0 14px 0; }
+  .rep-perks {
+    display: flex; justify-content: center; flex-wrap: wrap;
+    gap: 12px;
+    margin: 0 0 clamp(30px, 5vw, 42px);
+    list-style: none; padding: 0;
+  }
+  .rep-perks li {
+    border: 1px solid rgba(245, 237, 216, 0.28);
+    border-radius: 999px;
+    padding: 9px 18px;
+    font-size: 0.85rem;
+    color: var(--cream);
+  }
+  .rep-perks .pk { color: var(--gold); margin-right: 7px; }
   .rep-eyebrow {
     font-family: 'Cormorant Garamond', serif;
     font-style: italic;
@@ -987,7 +1064,11 @@
 <!-- ============ SECTION 3: NJ MAP ============ -->
 <section class="map-section" id="map">
   <h2 class="section-head" id="mapHead">Where We've Made a Difference</h2>
-  <p class="section-sub" id="mapSub">Gold pin: Jummah established. Hollow pins: in progress. Teal pins: districts that close for Eid.</p>
+  <p class="section-sub" id="mapSub">Gold pin: Jummah established. Hollow pins: in progress.</p>
+  <div class="map-tabs">
+    <button class="map-tab active" id="tabJummah" type="button">Jummah Prayer</button>
+    <button class="map-tab" id="tabEid" type="button">Eid Days Off</button>
+  </div>
   <div class="map-wrap">
     <svg class="nj-svg" viewBox="0 0 300 460" id="njSvg" aria-label="Map of New Jersey">
       <path class="nj-path" id="njPath" d="
@@ -1022,6 +1103,7 @@
         L 126 54
         Z
       "/>
+      <g id="eidLayer"></g>
     </svg>
 
     <div class="pin-anchor" style="left:37%; top:61%;">
@@ -1059,35 +1141,19 @@
     </div>
 
     <!-- Districts that close school for Eid (public record, CAIR-NJ tracked) -->
-    <div class="pin-anchor district" style="left:74%; top:19%;">
-      <div class="teardrop"></div>
-      <div class="pin-label">Fair Lawn</div>
-      <div class="tooltip">
-        <div class="tt-school">Fair Lawn Public Schools</div>
-        <div class="tt-meta">District closes for <span>Eid</span></div>
-        <div class="tt-meta">Added to calendar: <span>2023</span></div>
-      </div>
-    </div>
 
-    <div class="pin-anchor district" style="left:57%; top:30%;">
-      <div class="teardrop"></div>
-      <div class="pin-label">Watchung</div>
-      <div class="tooltip">
-        <div class="tt-school">Watchung Borough Schools</div>
-        <div class="tt-meta">District closes for <span>Eid</span></div>
-        <div class="tt-meta">Added to calendar: <span>2023&ndash;24</span></div>
-      </div>
-    </div>
 
-    <div class="pin-anchor district" style="left:64%; top:38%;">
-      <div class="teardrop"></div>
-      <div class="pin-label">East Brunswick</div>
-      <div class="tooltip">
-        <div class="tt-school">East Brunswick Public Schools</div>
-        <div class="tt-meta">District closes for <span>Eid</span></div>
-        <div class="tt-meta">Added to calendar: <span>2023&ndash;24</span></div>
-      </div>
+    <div class="eid-tip" id="eidTip"></div>
+  </div>
+
+  <div class="map-extras" id="eidExtras">
+    <div class="map-legend">
+      <span><i class="lg-dot"></i>Eid al-Fitr off (2025&ndash;26)</span>
+      <span><i class="lg-dot lg-adha"></i>Also Eid al-Adha</span>
+      <span><i class="lg-dot lg-future"></i>First Eid off in 2026</span>
+      <span>* high school only</span>
     </div>
+    <p class="map-source">Source: <a href="https://cair-nj.org/wp-content/uploads/2025/10/NJ_Eid_Map.pdf" target="_blank" rel="noopener">CAIR-NJ Eid map</a>, Oct 2025. These district policies were won by local families and advocates across the state.</p>
   </div>
 </section>
 
@@ -1121,10 +1187,17 @@
 
 <!-- ============ SECTION 4.4: BECOME A REP ============ -->
 <section class="rep-section" id="rep">
-  <p class="rep-eyebrow">Become a Rep</p>
-  <h2 class="section-head rep-head">Be the one who gets it done at your school.</h2>
-  <p class="rep-body">Every pin on that map started with one student willing to ask. Reps get the full playbook for their track, direct backup from our team, and a process that has already worked, from first email to standing policy.</p>
-  <a href="#contact" class="cta-button" id="repCta">Sign Up as a Rep</a>
+  <div class="rep-panel">
+    <p class="rep-eyebrow">Become a Rep</p>
+    <h2 class="section-head rep-head">Be the one who gets it done at your school.</h2>
+    <p class="rep-body">Every pin on that map started with one student willing to ask.</p>
+    <ul class="rep-perks">
+      <li><span class="pk">&#10022;</span>Full playbook for your track</li>
+      <li><span class="pk">&#10022;</span>Direct backup from our team</li>
+      <li><span class="pk">&#10022;</span>A process that's already worked</li>
+    </ul>
+    <a href="#contact" class="cta-button" id="repCta">Sign Up as a Rep</a>
+  </div>
 </section>
 
 <!-- ============ SECTION 4.5: ABOUT US ============ -->
@@ -1488,6 +1561,70 @@
       });
     }, 300);
   });
+
+  /* ---- Map tabs: Jummah pins vs Eid districts ---- */
+  const EID_DISTRICTS = [{"n":"Atlantic City","c":"Atlantic","x":183.8,"y":369.9,"hs":0,"a":0,"f":0},{"n":"Pleasantville","c":"Atlantic","x":173.6,"y":365.1,"hs":0,"a":0,"f":0},{"n":"Closter","c":"Bergen","x":247.5,"y":86.3,"hs":1,"a":0,"f":0},{"n":"Demarest","c":"Bergen","x":247.3,"y":89.1,"hs":1,"a":0,"f":0},{"n":"Edgewater","c":"Bergen","x":246.0,"y":112.1,"hs":0,"a":0,"f":0},{"n":"Elmwood Park","c":"Bergen","x":225.8,"y":98.2,"hs":0,"a":0,"f":0},{"n":"Englewood Cliffs","c":"Bergen","x":249.0,"y":101.9,"hs":0,"a":0,"f":0},{"n":"Fair Lawn","c":"Bergen","x":223.7,"y":91.8,"hs":0,"a":0,"f":0,"y2":"2023"},{"n":"Fairview","c":"Bergen","x":242.7,"y":114.5,"hs":0,"a":0,"f":0},{"n":"Franklin Lakes","c":"Bergen","x":213.1,"y":78.0,"hs":0,"a":0,"f":0},{"n":"Hackensack","c":"Bergen","x":236.3,"y":101.5,"hs":0,"a":0,"f":0},{"n":"Harrington Park","c":"Bergen","x":244.8,"y":84.5,"hs":1,"a":0,"f":0},{"n":"Haworth","c":"Bergen","x":243.5,"y":88.4,"hs":1,"a":0,"f":0},{"n":"Leonia","c":"Bergen","x":244.1,"y":105.9,"hs":0,"a":0,"f":0},{"n":"Mahwah","c":"Bergen","x":221.5,"y":65.4,"hs":0,"a":0,"f":0},{"n":"Midland Park","c":"Bergen","x":222.3,"y":83.1,"hs":0,"a":0,"f":0},{"n":"Northvale","c":"Bergen","x":249.1,"y":80.3,"hs":1,"a":0,"f":0},{"n":"Norwood","c":"Bergen","x":247.3,"y":81.9,"hs":1,"a":0,"f":0},{"n":"Oakland","c":"Bergen","x":205.0,"y":78.6,"hs":1,"a":0,"f":0},{"n":"Old Tappan","c":"Bergen","x":243.2,"y":79.5,"hs":1,"a":0,"f":0},{"n":"Paramus","c":"Bergen","x":231.6,"y":91.0,"hs":0,"a":0,"f":0},{"n":"Ridgefield","c":"Bergen","x":241.2,"y":110.8,"hs":0,"a":0,"f":0},{"n":"Ridgewood","c":"Bergen","x":225.7,"y":84.9,"hs":0,"a":1,"f":0},{"n":"Rockleigh","c":"Bergen","x":247.6,"y":81.5,"hs":1,"a":0,"f":0},{"n":"Teaneck","c":"Bergen","x":240.1,"y":99.5,"hs":0,"a":1,"f":0},{"n":"Wyckoff","c":"Bergen","x":218.3,"y":81.3,"hs":1,"a":0,"f":0},{"n":"East Orange","c":"Essex","x":214.0,"y":122.2,"hs":0,"a":0,"f":0},{"n":"Irvington","c":"Essex","x":209.9,"y":128.4,"hs":0,"a":1,"f":0},{"n":"Livingston","c":"Essex","x":198.5,"y":116.9,"hs":0,"a":0,"f":0},{"n":"Millburn / Short Hills","c":"Essex","x":200.2,"y":126.8,"hs":0,"a":0,"f":0},{"n":"Montclair","c":"Essex","x":213.3,"y":111.8,"hs":0,"a":0,"f":0},{"n":"Newark","c":"Essex","x":218.7,"y":128.0,"hs":0,"a":0,"f":0},{"n":"South Orange & Maplewood","c":"Essex","x":206.2,"y":125.3,"hs":0,"a":0,"f":0},{"n":"Jersey City","c":"Hudson","x":231.9,"y":129.4,"hs":0,"a":0,"f":0},{"n":"North Bergen","c":"Hudson","x":240.9,"y":116.1,"hs":0,"a":1,"f":0},{"n":"East Windsor","c":"Mercer","x":171.1,"y":211.3,"hs":0,"a":0,"f":0},{"n":"Princeton","c":"Mercer","x":150.6,"y":193.8,"hs":0,"a":0,"f":0},{"n":"West Windsor & Plainsboro","c":"Mercer","x":157.3,"y":200.4,"hs":0,"a":0,"f":0},{"n":"Cranbury","c":"Middlesex","x":172.1,"y":201.4,"hs":0,"a":0,"f":0},{"n":"East Brunswick","c":"Middlesex","x":185.5,"y":181.8,"hs":0,"a":1,"f":0,"y2":"2023–24"},{"n":"Edison","c":"Middlesex","x":185.8,"y":165.7,"hs":0,"a":0,"f":0},{"n":"Highland Park","c":"Middlesex","x":184.2,"y":169.7,"hs":0,"a":0,"f":0},{"n":"Middlesex","c":"Middlesex","x":174.3,"y":156.0,"hs":0,"a":0,"f":0},{"n":"Monroe","c":"Middlesex","x":184.2,"y":201.0,"hs":0,"a":1,"f":0},{"n":"North Brunswick","c":"Middlesex","x":176.2,"y":177.0,"hs":0,"a":0,"f":0},{"n":"Piscataway","c":"Middlesex","x":178.3,"y":159.2,"hs":0,"a":1,"f":0},{"n":"Sayreville & Parlin","c":"Middlesex","x":193.1,"y":176.4,"hs":0,"a":1,"f":0},{"n":"South Brunswick","c":"Middlesex","x":169.7,"y":188.3,"hs":0,"a":1,"f":0},{"n":"Boonton","c":"Morris","x":185.3,"y":98.0,"hs":0,"a":1,"f":0},{"n":"Madison","c":"Morris","x":184.4,"y":123.1,"hs":0,"a":0,"f":0},{"n":"Montville","c":"Morris","x":191.4,"y":96.1,"hs":0,"a":0,"f":0},{"n":"Mount Olive","c":"Morris","x":139.5,"y":104.7,"hs":0,"a":0,"f":0},{"n":"Parsippany","c":"Morris","x":182.8,"y":105.7,"hs":0,"a":1,"f":0},{"n":"Rockaway Boro","c":"Morris","x":170.3,"y":97.9,"hs":0,"a":0,"f":0},{"n":"Clifton","c":"Passaic","x":219.5,"y":106.2,"hs":0,"a":1,"f":0},{"n":"Little Falls","c":"Passaic","x":213.3,"y":104.2,"hs":0,"a":0,"f":0},{"n":"Passaic","c":"Passaic","x":224.5,"y":106.5,"hs":0,"a":0,"f":0},{"n":"Paterson","c":"Passaic","x":218.3,"y":96.0,"hs":0,"a":0,"f":0},{"n":"Pompton Lakes","c":"Passaic","x":201.4,"y":80.0,"hs":0,"a":0,"f":0},{"n":"Prospect Park","c":"Passaic","x":217.8,"y":92.2,"hs":0,"a":1,"f":0},{"n":"Wayne","c":"Passaic","x":203.4,"y":94.2,"hs":0,"a":0,"f":0},{"n":"Woodland Park","c":"Passaic","x":215.0,"y":100.5,"hs":0,"a":0,"f":0},{"n":"Elizabeth","c":"Union","x":213.5,"y":140.4,"hs":0,"a":0,"f":0},{"n":"Hillside","c":"Union","x":210.7,"y":133.9,"hs":0,"a":1,"f":0},{"n":"Linden","c":"Union","x":208.9,"y":147.8,"hs":0,"a":0,"f":0},{"n":"Plainfield","c":"Union","x":186.1,"y":145.4,"hs":0,"a":0,"f":0},{"n":"Scotch Plains & Fanwood","c":"Union","x":188.5,"y":144.2,"hs":0,"a":0,"f":0},{"n":"Union","c":"Union","x":206.1,"y":134.3,"hs":0,"a":0,"f":0},{"n":"Westfield","c":"Union","x":194.5,"y":141.1,"hs":0,"a":0,"f":0},{"n":"Bernards Township","c":"Somerset","x":163.6,"y":137.6,"hs":0,"a":0,"f":0},{"n":"Franklin","c":"Somerset","x":167.3,"y":169.8,"hs":0,"a":1,"f":0},{"n":"Green Brook","c":"Somerset","x":177.8,"y":150.9,"hs":0,"a":0,"f":0},{"n":"Hillsborough","c":"Somerset","x":149.2,"y":168.7,"hs":0,"a":0,"f":0},{"n":"North Plainfield","c":"Somerset","x":183.4,"y":146.0,"hs":0,"a":0,"f":0},{"n":"Warren","c":"Somerset","x":170.6,"y":145.5,"hs":0,"a":0,"f":0},{"n":"Watchung Borough","c":"Somerset","x":180.0,"y":144.6,"hs":0,"a":0,"f":0,"y2":"2023–24"},{"n":"Holmdel","c":"Monmouth","x":218.1,"y":191.2,"hs":0,"a":1,"f":0},{"n":"Marlboro","c":"Monmouth","x":209.7,"y":202.1,"hs":0,"a":0,"f":0},{"n":"Evesham","c":"Burlington","x":119.7,"y":281.2,"hs":0,"a":0,"f":0},{"n":"Moorestown","c":"Burlington","x":112.3,"y":261.9,"hs":0,"a":0,"f":0},{"n":"Mount Laurel","c":"Burlington","x":120.6,"y":268.2,"hs":0,"a":0,"f":0},{"n":"Voorhees","c":"Camden","x":111.9,"y":283.2,"hs":0,"a":0,"f":1}];
+  const eidLayer = document.getElementById('eidLayer');
+  const SVGNS = 'http://www.w3.org/2000/svg';
+  EID_DISTRICTS.forEach(d => {
+    const c = document.createElementNS(SVGNS, 'circle');
+    c.setAttribute('cx', d.x); c.setAttribute('cy', d.y); c.setAttribute('r', 4.5);
+    c.setAttribute('class', 'eid-dot' + (d.a ? ' adha' : '') + (d.f ? ' future' : ''));
+    c.dataset.n = d.n + (d.hs ? ' *' : '');
+    c.dataset.c = d.c;
+    c.dataset.s = d.f ? 'First Eid al-Fitr off: 2026'
+      : (d.y2 ? 'On district calendar since ' + d.y2
+      : 'Eid al-Fitr off (2025\u201326)') + (d.a ? ' \u00b7 also Eid al-Adha' : '');
+    eidLayer.appendChild(c);
+  });
+
+  const eidTip = document.getElementById('eidTip');
+  const mapWrapEl = document.querySelector('.map-wrap');
+  function showEidTip(target) {
+    eidTip.innerHTML = '<div class="t-name">' + target.dataset.n + '</div><div>' + target.dataset.c + ' County</div><div>' + target.dataset.s + '</div>';
+    const wr = mapWrapEl.getBoundingClientRect();
+    const r = target.getBoundingClientRect();
+    eidTip.style.left = (r.left + r.width / 2 - wr.left) + 'px';
+    eidTip.style.top = (r.top - wr.top) + 'px';
+    eidTip.classList.add('show');
+  }
+  eidLayer.addEventListener('mouseover', e => { if (e.target.classList.contains('eid-dot')) showEidTip(e.target); });
+  eidLayer.addEventListener('mouseout', () => eidTip.classList.remove('show'));
+  document.getElementById('njSvg').addEventListener('click', e => {
+    if (e.target.classList.contains('eid-dot')) { showEidTip(e.target); }
+    else { eidTip.classList.remove('show'); }
+  });
+
+  const tabJummah = document.getElementById('tabJummah');
+  const tabEid = document.getElementById('tabEid');
+  const eidExtras = document.getElementById('eidExtras');
+  const mapHeadEl = document.getElementById('mapHead');
+  const mapSubEl = document.getElementById('mapSub');
+  function setMapTab(showEid) {
+    mapWrapEl.classList.toggle('show-eid', showEid);
+    tabEid.classList.toggle('active', showEid);
+    tabJummah.classList.toggle('active', !showEid);
+    eidExtras.style.display = showEid ? 'block' : 'none';
+    eidTip.classList.remove('show');
+    if (showEid) {
+      mapHeadEl.textContent = 'Where Eid Is Already a Day Off';
+      mapSubEl.textContent = '80+ NJ public school districts already recognize Eid al-Fitr as a day off.';
+      gsap.fromTo('.eid-dot',
+        { scale: 0, opacity: 0 },
+        { scale: 1, opacity: 0.9, duration: 0.5, ease: 'back.out(2.2)',
+          stagger: { each: 0.012, from: 'random' }, overwrite: 'auto' }
+      );
+    } else {
+      mapHeadEl.textContent = "Where We've Made a Difference";
+      mapSubEl.textContent = 'Gold pin: Jummah established. Hollow pins: in progress.';
+      gsap.fromTo('.pin-anchor',
+        { y: -40, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.7, stagger: 0.12, ease: 'back.out(1.8)', overwrite: 'auto' }
+      );
+    }
+  }
+  tabJummah.addEventListener('click', () => setMapTab(false));
+  tabEid.addEventListener('click', () => setMapTab(true));
 
   /* ---- Resource request buttons: prefill contact form and scroll ---- */
   const RESOURCE_TO_INTEREST = {
